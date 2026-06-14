@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BugLens — LLM Bug Detection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">🐛</div>
+    <div>
+      <div class="brand-name">BugLens</div>
+      <div class="brand-sub">LLM-Powered Bug Detection · Aashik Poudel · LUT University 2026</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="model-pill">gpt-4o-mini</div>
+  </div>
+</header>
+
+<div class="workspace">
+
+  <!-- Left: Code Editor -->
+  <div class="left-panel">
+    <div class="panel-header">
+      <span class="panel-title">Source Code</span>
+      <select class="lang-select" id="language">
+        <option>Python</option>
+        <option>JavaScript</option>
+        <option>Java</option>
+        <option>C</option>
+        <option>C++</option>
+        <option>TypeScript</option>
+        <option>PHP</option>
+        <option>Go</option>
+        <option>Ruby</option>
+        <option>Rust</option>
+        <option>Swift</option>
+        <option>Kotlin</option>
+      </select>
+    </div>
+
+    <div class="editor-wrap">
+      <div class="line-numbers" id="lineNums"></div>
+      <textarea id="codeInput"
+        placeholder="# Paste your source code here..."
+        oninput="onCodeChange()"
+        onscroll="syncScroll()"
+        spellcheck="false"></textarea>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="char-row">
+        <span>Characters: <span id="charCount">0</span> / 8000</span>
+        <span id="lineCount">0 lines</span>
+      </div>
+      <button id="analyseBtn" onclick="runAnalysis()">⚡ Analyse Code</button>
+      <button id="clearBtn" onclick="clearAll()">✕ Clear Editor</button>
+    </div>
+  </div>
+
+  <!-- Right: Results -->
+  <div class="right-panel">
+    <div class="results-header">
+      <span class="panel-title" id="resultsTitle">Bug Report</span>
+      <span id="resultsSubtitle">— paste code and analyse</span>
+    </div>
+
+    <div class="results-body" id="resultsBody">
+
+      <div class="placeholder" id="placeholder">
+        <div class="placeholder-icon">🔍</div>
+        <h3>No analysis yet</h3>
+        <p>Paste your source code in the editor and click <strong>Analyse Code</strong> to generate a structured bug report.</p>
+      </div>
+
+      <div class="spinner-wrap" id="spinnerWrap">
+        <div class="spinner-ring"></div>
+        <div class="spinner-label">Scanning code with GPT-4o-mini...</div>
+      </div>
+
+      <div id="resultsContent" style="display:none"></div>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="/static/main.js"></script>
+</body>
+</html>
